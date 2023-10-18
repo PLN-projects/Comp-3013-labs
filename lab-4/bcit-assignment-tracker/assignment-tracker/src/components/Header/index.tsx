@@ -4,20 +4,36 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { uppercase } from "../../helpers/stringHelpers";
 
 type assignmentProps = {
-  assignmentsList: string[];
-  setAssignmentList: (b: string[]) => void;
-}
+  assignmentsList: { name: string; completed: boolean }[];
+  setAssignmentList: (a: { name: string; completed: boolean }[]) => void;
+};
 
-function addAssignment (e: React.FormEvent<HTMLFormElement>, assignment: string, assignmentsList: string[], setAssignmentList: (b: string[]) => void) {
+function addAssignment(
+  e: React.FormEvent<HTMLFormElement>,
+  assignment: string, 
+  assignmentsList: { name: string; completed: boolean }[], 
+  setAssignmentList: (a: { name: string; completed: boolean }[]) => void ) {
+    
   e.preventDefault();
-  for(let counter = 0; counter < assignmentsList.length; counter++) {
-    if(assignment.toLowerCase().trim() == assignmentsList[counter].toLowerCase().trim()) {
+
+  // Validate for duplicate assignments
+  for (let counter = 0; counter < assignmentsList.length; counter++) {
+    if (assignment.toLowerCase().trim() === assignmentsList[counter].name.toLowerCase().trim()) {
       alert(`${assignment.trim()} Already exists, no duplicates allowed`);
       return;
     }
   }
-  setAssignmentList([...assignmentsList, assignment.trim()]);
+  
+  // create a new assignment to add the the array
+  const newAssignment = {
+    name: assignment.trim(),
+    completed: false, // initialize status for to false
+  };
+  
+  setAssignmentList([...assignmentsList, newAssignment]);
+  console.log(assignmentsList);
 }
+
 
 export function Header( {assignmentsList, setAssignmentList}: assignmentProps) {
   
