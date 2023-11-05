@@ -1,14 +1,15 @@
+import React from 'react';
+import { useEffect } from 'react';
 import { Switch, Group, useMantineColorScheme } from '@mantine/core';
 //@ts-ignore - I'm getting a weird typescript error where it says it's not finding my stylesheet even though it's actively using it
 import classes from './LightDarkSlider.module.css'; 
-import React from 'react';
 import {useHotkeys, useLocalStorage } from '@mantine/hooks';
 
-export default function LightDarkSlider() {
+export function LightDarkSlider() {
 
   // Cookie and type declaration from mantine UI
   type ColorScheme = 'dark' | 'light';
-
+  
   const [preferredColor, setPreferredColor] = useLocalStorage<ColorScheme> ({
     key: 'mantine-color-scheme',
     defaultValue: 'dark',
@@ -18,9 +19,13 @@ export default function LightDarkSlider() {
   const { setColorScheme } = useMantineColorScheme();
   useHotkeys([['mod+J', () => changeColorScheme()]]);
 
-  if(preferredColor != undefined){
-    setColorScheme(preferredColor); // set initial color for application it will use default value
-  }
+  // set initial color for application it will use default value useEffect was needed for this to avoid causing a warning
+  useEffect(() => {
+    if(preferredColor != undefined){
+      setColorScheme(preferredColor);
+    }
+  }, [preferredColor, setColorScheme]);
+
 
   // change value of cookie and set it to the cookies color value
   function changeColorScheme(){

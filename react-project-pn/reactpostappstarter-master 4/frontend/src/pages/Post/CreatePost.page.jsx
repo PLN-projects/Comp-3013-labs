@@ -2,11 +2,14 @@ import { TextInput, Button, Group, Box } from "@mantine/core";
 import DOMAIN from "../../services/endpoint";
 import axios from "axios";
 import { useForm } from "@mantine/form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import useBoundStore from "../../store/Store";
 
 function CreatePostPage() {
   const navigate = useNavigate();
-  const form = useForm({
+  let userMatch = false;
+
+  let form = useForm({
     initialValues: {
       title: "",
       category: "",
@@ -14,6 +17,26 @@ function CreatePostPage() {
       content: "",
     },
   });
+
+  // useLocation allows me to capturn initual values from the Update Page if that was used
+  const initialValues = useLocation();
+  
+  if(initialValues.state != null) {
+    form = useForm({
+      initialValues: {
+        title: initialValues.state.postValues.title,
+        category: initialValues.state.postValues.category,
+        image: initialValues.state.postValues.image,
+        content: initialValues.state.postValues.content,
+      },
+    });
+
+    const currentUserID = useBoundStore((state) => state).user.id
+
+    if(currentUserID == initialValues.state.postValues.userId){
+      userMatch = true;
+    }
+  }
 
   const handleSubmit = async (values) => {
     const res = await axios.post(`${DOMAIN}/api/posts`, values);
@@ -49,8 +72,12 @@ function CreatePostPage() {
         />
 
         <Group position="right" mt="md">
-          <Button type="submit">Submit</Button>
+          {userMatch == true 
+          ? <Button type="submit">Update</Button>
+            : <Button type="submit">Create</Button>}
         </Group>
+
+
       </form>
     </Box>
   );

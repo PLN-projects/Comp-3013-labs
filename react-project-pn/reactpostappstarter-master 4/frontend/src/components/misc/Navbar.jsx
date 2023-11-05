@@ -5,7 +5,7 @@ import { Container, Group, Burger, Drawer, Stack } from "@mantine/core";
 import useLinks from "./useLinks";
 import { DrawerContext } from "../../Contexts/drawerContext";
 import { NavLink } from "react-router-dom";
-import LightDarkSlider from "./LightDarkSlider";
+import { LightDarkSlider } from "./LightDarkSlider.tsx";
 
 const Navbar = () => {
   const { opened, toggle } = React.useContext(DrawerContext);
