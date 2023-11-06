@@ -57,12 +57,10 @@ export const postDetailsLoader = async ({ params }) => {
     // do something with this -> ok
     const id = params.id;
 
-    /* for some reason querrying the api/posts/${id} endpoint always gave me the first entry in the posts array
-    for this reason I qurried the posts/ endpoint and used the posts array with params.id - 1 to get the individual post */
-
-    const response = await axios.get(`${DOMAIN}/api/posts/`);
-    let postData = response.data[id - 1];
+    const response = await axios.get(`${DOMAIN}/api/posts/${id}`);
+    let postData = response.data;
     // console.log(postData);
+
     return(postData);
 };
 

@@ -32,13 +32,28 @@ export const posts = [
 ];
 
 export const addPost = (post: any) => {
-  //  Issues:
-  //  *     The request body contains the title, category, and image,
-  //  *     but the addPost function needs to add a unique id
-  //  *     and the id of the currently logged in user to the post.
-  post.id = 3;
-  post.userId = 2;
-  posts.push(post);
+
+  // if post.editing is a new value that's false or true depending on if the user came from the postDetails page or the create page
+  if(post.editing == false){
+    post.id = posts.length + 1;
+    delete post.editing; // clean data so it doesn't get pushed into the array
+    posts.push(post);
+  }
+  else {
+    // use find function to check the array based on if the posts.id equals post.id 
+    const found = posts.find((p) => p.id == post.id);
+    if (found) {
+      // Update the properties of the post
+      found.title = post.title;
+      found.category = post.category;
+      found.content = post.content;
+      found.image = post.image;
+    }
+    // probably not necessary, but I'm deleting the data that's no longer needed so it doesn't lead to any potential memory leaks
+    delete post.editing;
+    delete post.id;
+    delete post.userId;
+  }
 };
 
 export const verifyUser = (email: string, password: string) => {
