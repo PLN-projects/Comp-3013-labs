@@ -7,7 +7,7 @@ import useBoundStore from "../../store/Store";
 
 function CreatePostPage() {
   const navigate = useNavigate();
-  let userMatch = false;
+  let userMatch = false;       
 
   let form = useForm({
     initialValues: {
@@ -15,15 +15,15 @@ function CreatePostPage() {
       category: "",
       image: "",
       content: "",
-      userId: useBoundStore((state) => state).user.id,
-      editing: false,
+      userId: useBoundStore((state) => state).user.id, // id of the current logged user
+      editing: false, // boolean flag that indicates whether this post is being created or edited
     },
   });
 
-  // useLocation allows me to capturn initual values from the Update Page if that was used
+  // useLocation allows me to capture initial values coming in from the Update route from the postDetailsPage. These Values are inserted into the initialValues in the Form which are all sent to addPost
   const initialValues = useLocation();
   
-  // if the user came into the page from a postDetailsPage by pressing update then initialValues is not null so form fields can be set
+  // if the user came from the postDetailsPage by pressing update then initialValues.state is not null so form fields can be set
   if(initialValues.state != null) {
     form = useForm({
       initialValues: {
@@ -31,13 +31,13 @@ function CreatePostPage() {
         category: initialValues.state.postValues.category,
         image: initialValues.state.postValues.image,
         content: initialValues.state.postValues.content,
-        id: initialValues.state.postValues.id, // since the user came from the update button set the post id
-        userId: useBoundStore((state) => state).user.id,
+        id: initialValues.state.postValues.id, // Since the post is being updated add the post ID to the values
         editing: true, // since initialValues.state has data then initialValues.state.postValues.userId does, set editing to true
       },
     });
     
-    const loggedUserID = useBoundStore((state) => state).user.id // check if the logged in user is also the post author
+    // Check whether the logged in user is also the author -> this determines the create or update button will render
+    const loggedUserID = useBoundStore((state) => state).user.id
     if(loggedUserID == initialValues.state.postValues.userId){
       userMatch = true;
     }
@@ -55,7 +55,6 @@ function CreatePostPage() {
         navigate(`/posts/${values.id}`);
       }
     }
-
   };
 
   return (

@@ -59,7 +59,7 @@ export const postDetailsLoader = async ({ params }) => {
 
     const response = await axios.get(`${DOMAIN}/api/posts/${id}`);
     let postData = response.data;
-    // console.log(postData);
+    console.log(postData);
 
     return(postData);
 };
