@@ -36,7 +36,7 @@ export const addPost = (post: any) => {
   // if post.editing is a new value that's false or true depending on if the user came from the postDetails page or the create page
   if(post.editing == false){
     post.id = posts.length + 1;
-    // userId is already inserted by the initialValues insertion using useBoundStorage
+    // userId is already inserted by the initialValues
     delete post.editing; // clean data so it doesn't get pushed into the array
     posts.push(post);
   }
