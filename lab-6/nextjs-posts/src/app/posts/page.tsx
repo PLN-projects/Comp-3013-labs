@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 export default async function PostsPage() {
   
+  // if this is your first time running the app you will need to run: npx prisma generate in the terminal
   const posts = await prisma.post.findMany();
 
   return (
