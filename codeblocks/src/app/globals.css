@@ -12,3 +12,11 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
 }
+/* div.display-block {
+    text-align:left; 
+    margin: 20px;
+}
+div.display-block div:first-child {
+    border-radius: 10px;
+    padding: 10px;
+} */

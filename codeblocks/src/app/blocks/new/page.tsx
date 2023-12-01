@@ -33,7 +33,7 @@ export default function BlockCreatePage() {
                 </div>
                 <div className="flex gap-4">
                     <label className="w-12" htmlFor="code">Code: </label>
-                    <textarea className="text-black border rounded p-2 w-full" name="code" id="code" />
+                    <textarea className="text-black border rounded p-2 w-full h-[40vh]" name="code" id="code" />
                 </div>
                 <button className="self-end max-w-[100px] rounded p-2 bg-blue-600 text-white" type="submit">Create</button>
             </div>

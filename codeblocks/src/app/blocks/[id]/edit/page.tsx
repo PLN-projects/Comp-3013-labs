@@ -1,6 +1,7 @@
 import React from 'react'
 import { redirect } from "next/navigation";
 import { db } from "@/db";
+import { notFound } from "next/navigation";
 
 async function updateBlock(formData:FormData){
 
@@ -32,6 +33,10 @@ export default async function editPage( { params }: any ) {
       },
     });
 
+    if (!currentBlock) {
+      return notFound();
+    }
+
   return (
     <main>
         <form action={updateBlock} className="max-w-[900px] mx-auto">
@@ -44,7 +49,7 @@ export default async function editPage( { params }: any ) {
                 </div>
                 <div className="flex gap-4">
                     <label className="w-12" htmlFor="code">Code: </label>
-                    <textarea defaultValue={currentBlock.code} className="text-black border rounded p-2 w-full" name="code" id="code" />
+                    <textarea defaultValue={currentBlock.code} className="text-black border rounded p-2 w-full h-[60vh]" name="code" id="code" />
                 </div>
                 {/* Hidden input for id because ID is used to search for the entry to update but the user shouldn't edit it*/}
                 <input type="hidden" name="id" value={params.id} />
