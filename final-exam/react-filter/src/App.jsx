@@ -23,7 +23,7 @@ function App() {
             <li key={filteredFoods.id}>
               {/* use string replace to replace  searchItem with searchItem in a mark tag, for some reason it always shows as plain text though an I'm not sure why...*/}
               <span>{filteredFoods.name}</span>
-              {/* {searchItem.length > 0 ? <span>{filteredFoods.name.replace(searchItem, `<mark>${searchItem}</mark>`)}</span> : <span>{filteredFoods.name}</span>}  */}
+              {/* {searchItem.length > 0 ? <span>{filteredFoods.name.replace(searchItem, `` )}</span> : <span>{filteredFoods.name}</span>}  */}
               <span>{filteredFoods.description}</span>
             </li>
           ))}
