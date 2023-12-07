@@ -1,0 +1,26 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+ul.food-list{
+  list-style-type: none;
+  margin-top: 20px;
+  text-align: left;
+}
+form.food-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+form.food-form label {
+  margin-right: 10px;
+}
+.food-list span:first-child{
+  color: blue;
+  margin-right: 12px;
+}
